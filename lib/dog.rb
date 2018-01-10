@@ -24,6 +24,20 @@ class Dog
     DB[:conn].execute(sql)
   end
 
+  def save
+    if self.id
+      update.id
+    else
+      sql = <<-SQL
+        INSERT INTO dogs (name, breed)
+        VALUES (?, ?)
+      SQL
+
+      DB[:conn].execute(sql, self.name, self.breed)
+      @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
+    end
+  end
+
   def self.new_from_db(dog_row)
     dog = Dog.new(dog_row[0], dog_row[1], dog_row[2])
     dog.save
@@ -34,21 +48,6 @@ class Dog
     sql = "SELECT * FROM dogs WHERE name = ?"
     row = DB[:conn].execute(sql, name)[0]
     self.new_from_db(row)
-  end
-
-  def save
-    if self.id
-      update.id
-    else
-      sql = <<-SQL
-        INSERT INTO dogs (name, breed)
-        VALUES (?, ?)
-      SQL
-      # binding.pry
-
-      DB[:conn].execute(sql, self.name, self.breed)
-      @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
-    end
   end
 
   def update
