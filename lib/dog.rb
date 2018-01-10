@@ -53,8 +53,8 @@ class Dog
 
     sql = "SELECT * FROM songs WHERE id = ?"
     row = DB[:conn].execute(sql, id)[0]
+    pry
     Dog.new(row[0], row[1], row[2])
-    binding.pry
   end
 
   def self.new_from_db(dog_row)
