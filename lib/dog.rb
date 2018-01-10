@@ -51,9 +51,9 @@ class Dog
     # binding.pry
     # self.create(name: row[1], breed: row[2])
 
-    sql = "SELECT * FROM songs WHERE id = ?"
+    sql = "SELECT * FROM dogs WHERE id = ?"
     row = DB[:conn].execute(sql, id)[0]
-    pry
+    binding.pry
     Dog.new(row[0], row[1], row[2])
   end
 
