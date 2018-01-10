@@ -65,7 +65,6 @@ class Dog
   end
 
   def self.new_from_db(dog_row)
-    binding.pry
     dog = Dog.new(id: dog_row[0], name: dog_row[1], breed: dog_row[2])
     dog.save
     dog
