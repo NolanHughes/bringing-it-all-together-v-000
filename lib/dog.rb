@@ -50,6 +50,10 @@ class Dog
     row = DB[:conn].execute(sql, id)[0]
     binding.pry
     self.create(name: row[1], breed: row[2])
+
+    sql = "SELECT * FROM songs WHERE id = ?"
+    row = DB[:conn].execute(sql, id)[0]
+    Song.new(row[0], row[1], row[2])
   end
 
   def self.new_from_db(dog_row)
