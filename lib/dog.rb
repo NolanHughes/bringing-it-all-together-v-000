@@ -37,6 +37,7 @@ class Dog
       binding.pry
       @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0]
       dog = DB[:conn].execute("SELECT last_insert_row FROM dogs")[0]
+      binding.pry
     end
   end
 
